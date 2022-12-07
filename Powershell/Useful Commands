@@ -1,0 +1,91 @@
+Connect-IPPSSession -UserPrincipalName <UPN> --> Create a remote PowerShell session to Exchange-related PowerShell environments
+
+Connect-ExchangeOnline --> Connect to ExchangeOnline
+
+Disconnect-ExchangeOnline -Confirm:$false --> Disconnect from Exchange Online
+
+Connect-MicrosoftTeams --> Connect to Microsoft Teams Online
+
+Enter-PSSession <Hostname> --> Start an interactive session with a single remote computer
+
+Exit-PSSession --> End the interactive session
+
+Connect-MsolService --> Initiate a connection to Azure Active Directory
+
+Set-CsPhoneNumberAssignment -Identity <UPN> -PhoneNumber <number> -PhoneNumberType CallingPlan --> Assign a Teams Voice number
+	
+Invoke-Command -ComputerName $computername -Credential $credential -ScriptBlock {<script to run on the remote machine>} --> Connect to a remote machine and execute commands
+
+$group = read-host -Prompt "Enter Group Name"get-adgroupmember -identity $group | select name | export-CSV C:\temp -> View all users in an AD group
+	
+get-aduser -identity source fname.lname -properties memberof | Select-object -ExpandProperty memberof | Add-ADGroupMember -Members target fname.lname  -> Add AD groups to another user 
+	
+set-executionpolicy remotesigned then PowerShell ISA run script->\\spssrv1\Common\GhassenB\O365_reactivate.ps1 
+	
+Add-MailboxFolderPermission -Identity <calendar owner>:\Calendar -User <target user> -AccessRights Editor -SharingPermissionFlags Delegate --> Give users access to a calendar. Remove the -SharingPermissionFlags Delegate if giving rights other than Editor
+	
+Get-MailboxFolderPermission -identity "<Calendar Owner>:\Calendar" --> See who has access to user's calendar
+
+Remove-CalendarEvents -Identity <calendar owner> -CancelOrganizedMeetings --> Cancel all the meetings organized by the user
+
+Remove-ADGroupMember -Identity <AD Group> -Members fname.lname, fname.lname2, fname.lname3 --> Remove users from AD Group
+
+Add-ADGroupMember -Identity <AD Group> -Members fname.lname, fname.lname2, fname.lname3 --> Add users to AD Group
+
+Unlock-ADAccount -Identity <Username> --> Unlock AD account
+
+Get-Mailbox "RoomName" | Set-CalendarProcessing -AllBookInPolicy:$false -AllRequestInPolicy:$false -BookInPolicy "EmailThatCanReserveIt" --> Restrict who can reserve room
+
+Get-ADUser -Filter 'department -like "<department name>"' -Properties * | select name, UserPrincipalName | export-csv <filename>.csv -NoTypeInformation --> Get all the users in the AD department
+
+import-csv <path>| foreach {add-distributiongroupmember -identity <distribution group name> -member $_.alias} --> Import from CSV to Distribution group
+	
+Reset-ComputerMachinePassword -Credential (Get-Credential) -Verbose --> Run this in elevated powershell to fix domain authentication error
+
+(Get-DynamicDistributionGroup "DL name").RecipientFilter --> Gets the rules of the dynamic list
+
+Set-DynamicDistributionGroup "DL Name" -RecipientFilter "filters"--> Applies new rules to the dynamic list, use -like'301*' instead of -eq
+
+Get-Recipient -RecipientPreviewFilter (Get-DynamicDistributionGroup "groupname").RecipientFilter | Export-CSV path\filename.csv --> Get all the users in a Dynamic Distribution List and export it into a csv file
+
+Get-DistributionGroupMember -Identity "GroupName" --> Get all the users in a distribution group
+	
+Set-Mailbox <mailbox_name> -Type Room Set-Mailbox <mailbox_name> -Type Room --> Convert a regular mailbox to a room mailbox
+
+Grant-CsDialoutPolicy -PolicyName DialoutCPCandPSTNInternational -Identity username@centralsquare.com --> Grant international calling in TeamsVoice
+
+Add-LocalGroupMember -Group "Administrators" -Member "username" --> Add a user to the local administrator group
+
+Test-ComputerSecureChannel --> Tests and repairs the secure channel between the local computer and its domain.
+
+Get-Alias | More --> Gets all the aliases of commands in powershell
+
+get-alias -definition *service --> Gets aliases that can be used on what you define
+
+Get-Command or GCM--> Search for the installed commands within powershell
+
+Get-Help --> Displays how to information for commands
+
+Get-Member --> Gets the properties of an object
+
+Get-History --> Gets all the commands ran in this session
+
+Invoke-history <command ID> --> Returns the command with that ID from running Get-History
+
+Start-Transcript -path <path> --> Creates a record of all or part of a PowerShell session to a text file
+
+Stop-Transcript --> Ends transcript
+
+Get-NetIPAddress --> Get the IP address of the machine
+
+Get-NetIPConfiguration --> Get the IP configuration of the machine
+
+Get-ComputerInfo -property *<write the info you want to look for like BIOS* --> Get computer information 
+
+Get-ChildItem -Path <path> -Recurse | where Extension -eq '<extension>' --> Get all the files with the needed extension in the directory
+
+Set-TimeZone -Name 'Central Standard Time' --> Set time zone 
+
+ii --> Open a file
+
+Get-EventLog -log system -newest 1000 | where-object {$_.eventid -eq '1074'} | format-table machinename, username, timegenerated -autosize 	-->see when a computer was last rebooted and by whom
