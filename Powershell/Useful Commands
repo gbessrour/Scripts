@@ -89,3 +89,5 @@ Set-TimeZone -Name 'Central Standard Time' --> Set time zone
 ii --> Open a file
 
 Get-EventLog -log system -newest 1000 | where-object {$_.eventid -eq '1074'} | format-table machinename, username, timegenerated -autosize 	-->see when a computer was last rebooted and by whom
+
+Move-Item -Path <source Path> -Destination <destination path>
