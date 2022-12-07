@@ -1,1 +1,0 @@
-Move-Item -Path "\\spssrv1\common\ghassenb\BitLocker Recovery Key*" -Destination "\\centralsquareazurefiles.file.core.windows.net\dept-it\Bitlocker Recovery Keys"
