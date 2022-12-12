@@ -1,0 +1,53 @@
+gpupdate /force -> Refresh computer policies
+Java -version -> See installed java version
+ping hostname or ping IPaddress -> Ping device on network
+Ipconfig -> Find the device's IP address
+Taskkill /PID enterPID /F or Taskkill /IM enterImageName /F -> Kill task
+Tasklist -> See all tasks 
+Getmac /v /fo /list--> Gets MAC address
+
+Net use --> See the mapped drives and devices
+net use * /delete -> Deletes all mapped drives and devices
+net use DRIVE: /delete --> Delete a specific mapped drive
+net use DRIVE: PATH /persistent:yes --> Add a mapped drive 
+net user username  /domain --> Get domain account info (expired or not)
+
+netsh wlan show profile --> Shows all networks that you are connected to
+netsh wlan show profile WiFi-name key=clear --> Shows password of the nework that you are connected to
+
+WMIC BIOS GET SERIALNUMBER --> Get the serial number of the computer
+getmac /v --> Get the mac addresses of the laptop
+
+net localgroup administrators user.name /ADD or DELETE --> Ddds or deletes user from admin group
+hostname --> Gets computer name
+
+powershell.exe -command (New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow()" --> Fixes Windows updates when it does not let you check online for updates.
+
+slmgr.vbs -ipk xxx-xxx-xxx-xxx-xxx --> Input a key and activate it through cmd
+
+Mstsc.exe /admin or mstsc.exe --> RDP
+
+Query user or Quser --> Returns all the users currently signed in or idle
+Logoff <ID> --> Logs off user from machine
+
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v CachedLogonsCount /t REG_SZ /d "0" /f --> Nuke Cached creds
+
+icacls "D:\test" /grant John:(OI)(CI)F /T --> Grant access to that path
+	F = Full Control
+	CI = Container Inherit - This flag indicates that subordinate containers will inherit this ACE.
+	OI = Object Inherit - This flag indicates that subordinate files will inherit the ACE.
+	/T = Apply recursively to existing files and sub-folders. (OI and CI only apply to new files and sub-folders)
+
+manage-bde -protectors C: -get --> Gets Bitlocker key
+
+Diskpart --> Opens the Diskpart window
+List disk or list partition --> Lists the available disks or paritions
+Select disk or select partition --> Selects a disk or a partition
+Delete disk or delete partition (can add override if the disk or partition is protected like a recovery partition) --> Delete a disk or a partition
+Clean --> Permanently delete all files and folders, and successfully clean up the disk.
+Create partition primary --> Make the drive accessible again
+Format fs=ntfs or format fs=FAT --> Format the drive with FAT or NTFS file system
+Assign --> Assign a drive letter
+
+
+net time \\system-with-correct-time /set /y  --> Fixes the time on the machine
